@@ -43,7 +43,16 @@ form.addEventListener('submit', async (event) => {
     });
 });
 
+// Function to initialize the calendar
+async function initCalendar() {
+    const lastNDays = getLastNDays(30); // Get the last 30 days
+    const logsSummary = await getLogsSummary(); // Fetch the logs summary from the server
+    const countMap = buildCountMap(logsSummary); // Build a count map from the logs summary
+    const calendarData = buildCalendarData(lastNDays, countMap); // Combine the last N days with the count map
+    renderCalendar(calendarData); // Render the calendar with the combined data
+}
 
 
 // Initialize the app
 init();
+initCalendar(); // Initialize the calendar on page load

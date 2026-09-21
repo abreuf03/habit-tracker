@@ -81,4 +81,14 @@ router.delete('/:id/logs/:date', (req, res) => {
     }
 });
 
+// GET -> group logs by date and count the number of habits completed for each date
+router.get('/logs-summary', (req, res) => {
+    const summary = db.prepare(`
+        SELECT date, COUNT(*) as count
+        FROM habit_logs
+        GROUP BY date
+    `).all();
+    res.json(summary);
+});
+
 module.exports = router;

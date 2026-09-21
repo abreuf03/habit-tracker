@@ -30,3 +30,9 @@ async function logHabit(habitId, date) {
     const data = await response.json();
     return {ok: response.ok, data}; // Return both the status and the data
 }
+
+// Function to get the summary of logs grouped by date
+async function getLogsSummary() {
+    const response = await fetch(`${BASE_URL}/logs-summary`);
+    return await response.json();
+}
