@@ -5,6 +5,7 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
+app.use('/api/habits', require('./routes/habits'));
 
 //define the port
 const PORT = 3000;
