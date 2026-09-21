@@ -65,18 +65,18 @@ segunda iteración.
 
 ## Cómo ejecutarlo en local
 
-\`\`\`bash
+```bash
 git clone https://github.com/eabreuf03-droid/habit-tracker.git
 cd habit-tracker
 npm install
 npm run dev
-\`\`\`
+```
 
 Luego abre `http://localhost:3000` en el navegador.
 
 ## Estructura del proyecto
 
-\`\`\`
+```
 habit-tracker/
 ├── server/
 │   ├── index.js
@@ -87,4 +87,4 @@ habit-tracker/
     ├── index.html
     ├── css/
     └── js/
-\`\`\`
+```
