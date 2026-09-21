@@ -52,16 +52,17 @@ segunda iteración.
 - [x] Prevención de duplicados (no se puede marcar el mismo hábito dos veces 
   el mismo día)
 - [x] Feedback de éxito/error al marcar un hábito
+- [x] Calendario visual tipo "contribution graph" (combina todos los hábitos, 
+  más oscuro = más hábitos completados ese día)
 
 ### En progreso
-- [ ] Calendario visual tipo "contribution graph" (combina todos los hábitos, 
-  más oscuro = más hábitos completados ese día)
+- [ ] Mejorar el diseño visual del frontend (por ahora es funcional pero básico)
 
 ### Por hacer
 - [ ] Estadísticas (racha actual, racha más larga)
 - [ ] Editar/eliminar hábitos
-- [ ] Mejorar el diseño visual del frontend (por ahora es funcional pero básico)
 - [ ] Modo oscuro
+
 
 ## Cómo ejecutarlo en local
 
