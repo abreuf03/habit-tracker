@@ -1,20 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@500;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --paper: #F6F3EC;
+  --paper-raised: #FFFFFF;
+  --ink: #2B2822;
+  --ink-soft: #6B6558;
+  --line: #DAD3C4;
+
+  --deporte: #C1552C;
+  --estudio: #2F6F62;
+  --social: #B98B1E;
+  --ocio: #7A4B6E;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 48px 24px 80px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+h1, h2 {
+  font-family: 'Bitter', serif;
+  margin: 0;
+  color: var(--ink);
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+header {
+  margin-bottom: 40px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 16px;
+}
+
+h1 {
+  font-size: 2.1rem;
+  font-weight: 700;
+}
+
+.tagline {
+  margin-top: 6px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* --- Formulario --- */
+#habit-form {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+#habit-form input,
+#habit-form select {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 6px 2px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+#habit-form input:focus,
+#habit-form select:focus {
+  border-color: var(--ink);
+}
+
+#habit-name { flex: 1; min-width: 180px; }
+
+#habit-form button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 4px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+#habit-form button:hover { opacity: 0.8; }
+
+/* --- Lista de hábitos --- */
+#habit-list {
+  list-style: none;
+  margin: 0 0 48px;
+  padding: 0;
+}
+
+#habit-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 14px 18px;
+  margin-bottom: 8px;
+  background: var(--paper-raised);
+  border-left: 4px solid var(--ink-soft);
+  border-radius: 4px;
+  font-size: 0.98rem;
+}
+
+#habit-list li[data-type="deporte"] { border-left-color: var(--deporte); }
+#habit-list li[data-type="estudio"] { border-left-color: var(--estudio); }
+#habit-list li[data-type="social"]  { border-left-color: var(--social); }
+#habit-list li[data-type="ocio"]    { border-left-color: var(--ocio); }
+
+#habit-list button {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+#habit-list button:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/* --- Calendario --- */
+h2 {
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+
+#calendar {
+  margin-top: 16px;
+}
+
 .calendar-grid {
-    display: grid;
-    grid-template-rows: repeat(7, 1fr);
-    grid-auto-flow: column;
-    gap: 3px;
-    max-width: 100%;
-    overflow-x: auto;
-    padding: 10px 0;
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
+  gap: 3px;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 12px 0 4px;
 }
 
 .day-cell {
-    width: 12px;
-    height: 12px;
-    border-radius: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
 }
 
-.level-0 { background-color: #ebedf0; }
-.level-1 { background-color: #9be9a8; }
-.level-2 { background-color: #40c463; }
-.level-3 { background-color: #216e39; }
+.level-0 { background-color: #EFE9DC; }
+.level-1 { background-color: #E3C08B; }
+.level-2 { background-color: #C1552C; }
+.level-3 { background-color: #7A2E12; }
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  #habit-form { flex-direction: column; align-items: stretch; }
+  #habit-list li { flex-wrap: wrap; }
+}

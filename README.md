@@ -57,10 +57,10 @@ segunda iteración.
 
 ### En progreso
 - [ ] Mejorar el diseño visual del frontend (por ahora es funcional pero básico)
+- [ ] Editar/eliminar hábitos
 
 ### Por hacer
 - [ ] Estadísticas (racha actual, racha más larga)
-- [ ] Editar/eliminar hábitos
 - [ ] Modo oscuro
 
 

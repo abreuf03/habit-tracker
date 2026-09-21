@@ -6,6 +6,7 @@ function renderHabits(habits) {
     habitList.innerHTML = ''; // Clear the list before rendering
     habits.forEach(habit => {
         const li = document.createElement('li');
+        li.dataset.type = habit.type;
         li.textContent = `${habit.name} (${habit.type})`;
         const logButton = document.createElement('button');
         logButton.textContent = 'Hecho hoy';
