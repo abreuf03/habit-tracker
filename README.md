@@ -59,7 +59,7 @@ segunda iteración.
 ### En progreso
 - [ ] Mejorar el diseño visual del frontend (por ahora es funcional pero básico)
   - [ ] Estética de botones
-  - [ ] Calendario
+  - [x] Calendario
   - [ ] Distribución del espacio
 
 

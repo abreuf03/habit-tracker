@@ -9,7 +9,7 @@
     <div class="page">
         <header>
             <h1>Habit Tracker</h1>
-            <p class="tagline">Un hábito a la vez, cada día.</p>
+            <p class="tagline">Registra tu progreso diario.</p>
         </header>
 
         <form id="habit-form">
@@ -26,8 +26,19 @@
 
         <ul id="habit-list"></ul>
 
-        <h2>Calendario de hábitos</h2>
-        <div id="calendar" class="calendar-grid"></div>
+        <div class='calendar-card'>
+            <h2><p style="text-align: center;">Calendario de hábitos</p></h2>
+            <p class="tagline" style="text-align: center;">Este es tu progreso de los últimos 30 días</p>
+            <div id="calendar" class="calendar-grid"></div>
+            <div class="calendar-legend">
+                <span>Menos</span>
+                <span class="legend-swatch level-0"></span>
+                <span class="legend-swatch level-1"></span>
+                <span class="legend-swatch level-2"></span>
+                <span class="legend-swatch level-3"></span>
+                <span>Más</span>
+            </div>
+        </div>
     </div>
 
     <script src="js/api.js"></script>
