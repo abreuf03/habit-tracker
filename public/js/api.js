@@ -36,3 +36,26 @@ async function getLogsSummary() {
     const response = await fetch(`${BASE_URL}/logs-summary`);
     return await response.json();
 }
+
+//Function to delete a habit 
+async function deleteHabit(habitId){
+    const response = await fetch(`${BASE_URL}/${habitId}`, {
+        method: 'DELETE'
+    });
+    const data = await response.json();
+    return {ok: response.ok, data}; // Return both the status and the data
+}
+
+// Function to edit a habit
+async function editHabit(habitId, name, type) {
+    const response = await fetch(`${BASE_URL}/${habitId}`, {
+        method: 'PUT',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, type })
+    });
+    const data = await response.json();
+    return {ok: response.ok, data}; // Return both the status and the data
+}
+

@@ -91,4 +91,38 @@ router.get('/logs-summary', (req, res) => {
     res.json(summary);
 });
 
+// PUT -> edit an habit
+router.put('/:id', (req, res) => {
+    const habitId = req.params.id;
+    const { name, type } = req.body;
+    if (!name || !type) {
+        return res.status(400).json({ error: 'Name and type are required' });
+    }
+    const result = db.prepare(`
+        UPDATE habits SET name = ?, type = ? WHERE id = ?
+    `).run(name, type, habitId);
+    if (result.changes === 0) {
+        return res.status(404).json({ error: 'Habit not found' });
+    }
+    else{
+        return res.status(200).json({ id: habitId, name, type });
+    }
+});
+
+// DELETE -> delete an habit and its logs
+router.delete('/:id', (req, res) => {
+    const habitId = req.params.id;
+    const result = db.prepare(`
+        DELETE FROM habit_logs WHERE habit_id = ?
+    `).run(habitId);
+    const habitResult = db.prepare(`
+        DELETE FROM habits WHERE id = ?
+    `).run(habitId);
+
+    if (habitResult.changes === 0) {
+        return res.status(404).json({ error: 'Habit not found' });
+    }
+    res.status(200).json({ message: 'Habit and its logs deleted successfully' });
+});
+
 module.exports = router;
