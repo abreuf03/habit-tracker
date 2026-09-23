@@ -171,8 +171,6 @@ Luego abre `http://localhost:3000` en el navegador.
 
 ## Estructura del proyecto
 
-## Estructura del proyecto
-
 ```
 habit-tracker/
 ├── server/
