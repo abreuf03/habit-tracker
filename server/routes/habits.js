@@ -148,6 +148,7 @@ router.get('/stats', (req, res) =>{
         return {
             id: habit.id,
             name: habit.name,
+            type: habit.type,
             current: streaks.current,
             longest: streaks.longest
         };
