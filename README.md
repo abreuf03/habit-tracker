@@ -43,6 +43,20 @@ esas partes. Es una decisión deliberada para este proyecto, no un límite
 de conocimiento — más adelante puedo migrar la interfaz a React como 
 segunda iteración.
 
+## Demo en vivo
+
+🔗 [https://habit-tracker-4jv1.onrender.com](https://habit-tracker-4jv1.onrender.com)
+
+> ⚠️ Desplegado en el plan gratuito de Render, que apaga el servicio 
+> tras 15 minutos de inactividad. La primera carga tras un rato sin 
+> visitas puede tardar 30-50 segundos en responder mientras el 
+> servicio "despierta".
+
+La demo usa datos de ejemplo (no datos personales reales) y se 
+regenera en cada despliegue mediante un script de seed, ya que 
+cualquier visitante puede crear, editar o borrar hábitos libremente 
+al no haber sistema de autenticación (ver "Ideas para una v2").
+
 ## Funcionalidades
 
 ### Hechas
@@ -57,6 +71,7 @@ segunda iteración.
   más oscuro = más hábitos completados ese día)
 - [x] Editar/eliminar hábitos
 - [x] Estadísticas (racha actual, racha más larga)
+- [x] Deployment (Render, capa gratuita)
 
 ### En progreso
 - [ ] Mejorar el diseño visual del frontend (por ahora es funcional pero básico)
@@ -67,7 +82,6 @@ segunda iteración.
 
 ### Por hacer
 - [ ] Modo oscuro
-- [ ] Deployment
 - [ ] Testing
 - [ ] Reorganizar lista de hábitos
   - [ ] Por orden alfabético
@@ -119,6 +133,30 @@ La misma función se reutiliza tanto para la racha de un hábito individual
 como para la racha global (días con al menos un hábito completado), 
 pasándole distintos conjuntos de fechas.
 
+### Datos de ejemplo para la demo pública
+Como la app no tiene autenticación, cualquiera con el link puede crear, 
+editar o eliminar hábitos. Para evitar exponer datos personales y que 
+la demo se pueda "ensuciar" con el tiempo, existe un script (`seed.js`) 
+que puebla la base de datos con hábitos ficticios variados (algunos con 
+rachas activas, alguno roto, alguno sin actividad reciente). El archivo 
+de base de datos de producción (`seed.db`) es distinto al de desarrollo 
+local (`habit-tracker.db`), seleccionado mediante la variable de entorno 
+`DB_FILE`. Además, el plan gratuito de Render usa almacenamiento efímero, 
+así que el propio script de seed se reejecuta en cada build, lo que 
+"resetea" la demo automáticamente cada vez que el servicio se reinicia 
+tras estar inactivo.
+
+## Ideas para una v2
+
+Cosas que valoré añadir pero decidí dejar fuera del alcance de esta 
+primera versión, para no descontrolar el proyecto:
+
+- **Autenticación y multiusuario**: registro/login, y que cada usuario 
+  vea solo sus propios hábitos. Implicaría añadir hasheo de contraseñas, 
+  gestión de sesiones/tokens, y una columna `user_id` en el esquema 
+  actual. Lo dejo como posible proyecto independiente o v2, una vez 
+  esta versión esté pulida.
+
 
 ## Cómo ejecutarlo en local
 
@@ -133,15 +171,27 @@ Luego abre `http://localhost:3000` en el navegador.
 
 ## Estructura del proyecto
 
+## Estructura del proyecto
+
 ```
 habit-tracker/
 ├── server/
 │   ├── index.js
 │   ├── db.js
+│   ├── seed.js
+│   ├── middleware/
+│   │   └── errorHandler.js
 │   └── routes/
-│       └── habits.js
+│       ├── habits.js
+│       └── utils.js
 └── public/
     ├── index.html
+    ├── stats.html
     ├── css/
+    │   └── style.css
     └── js/
+        ├── api.js
+        ├── app.js
+        ├── calendar.js
+        └── stats.js
 ```
