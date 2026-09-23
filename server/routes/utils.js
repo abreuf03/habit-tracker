@@ -30,7 +30,7 @@ function calculateStreaks(dates){
         return{current: currentRun, longest: longestRun}
     }
     else{
-        return{current: 0, longest: 0};
+        return{current: 0, longest: longestRun};
     }
 
 }

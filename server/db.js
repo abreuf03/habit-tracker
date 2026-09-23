@@ -1,6 +1,7 @@
 const Database = require('better-sqlite3');
 const path = require('path');
-const db = new Database(path.join(__dirname, 'habit-tracker.db'), { verbose: console.log });
+const dbFileName = process.env.DB_FILE || 'habit-tracker.db';
+const db = new Database(path.join(__dirname, dbFileName), { verbose: console.log });
 
 db.exec(`
     CREATE TABLE IF NOT EXISTS habits(
