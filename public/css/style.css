@@ -172,8 +172,8 @@ h2 {
 
 .level-0 { background-color: #cbdec8; }
 .level-1 { background-color: #78c391; }
-.level-2 { background-color: #2cc140; }
-.level-3 { background-color: #127a33; }
+.level-2 { background-color: #13c32b; }
+.level-3 { background-color: #023e15; }
 
 .calendar-card {
   background: var(--paper-raised);
@@ -197,6 +197,31 @@ h2 {
   height: 12px;
   border-radius: 2px;
   border: 1px solid var(--ink);
+}
+
+#habit-list .delete-btn {
+  border-color: #C1552C;
+  color: #C1552C;
+}
+
+#habit-list .delete-btn:hover {
+  background: #C1552C;
+  color: var(--paper-raised);
+}
+
+.habit-actions {
+  display: flex;
+  gap: 6px;
+}
+
+#habit-list button.logged {
+  background: #2F6F62;
+  border-color: #2F6F62;
+  color: var(--paper-raised);
+}
+
+#habit-list button.logged:hover {
+  opacity: 0.85;
 }
 
 /* --- Responsive --- */

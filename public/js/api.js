@@ -59,3 +59,17 @@ async function editHabit(habitId, name, type) {
     return {ok: response.ok, data}; // Return both the status and the data
 }
 
+// Function to get all habits completed for a specific date
+async function getHabitsByDate(date) {
+    const response = await fetch(`${BASE_URL}/logs/${date}`);
+    return await response.json();
+}
+
+// Function to delete a habit log for a specific date
+async function unlogHabit(habitId, date) {
+    const response = await fetch(`${BASE_URL}/${habitId}/logs/${date}`, {
+        method: 'DELETE'
+    });
+    const data = await response.json();
+    return {ok: response.ok, data}; // Return both the status and the data
+}

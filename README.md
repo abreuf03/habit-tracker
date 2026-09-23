@@ -48,7 +48,8 @@ segunda iteración.
 ### Hechas
 - [x] Crear hábitos (nombre + tipo/categoría)
 - [x] Listar hábitos existentes
-- [x] Marcar un hábito como completado en el día actual
+- [x] Marcar/desmarcar un hábito como completado en el día actual, con 
+  estado visual (botón verde + texto alternante)
 - [x] Prevención de duplicados (no se puede marcar el mismo hábito dos veces 
   el mismo día)
 - [x] Feedback de éxito/error al marcar un hábito
@@ -58,10 +59,9 @@ segunda iteración.
 
 ### En progreso
 - [ ] Mejorar el diseño visual del frontend (por ahora es funcional pero básico)
-  - [ ] Estética de botones
+  - [x] Estética de botones
   - [x] Calendario
   - [ ] Distribución del espacio
-
 
 ### Por hacer
 - [ ] Estadísticas (racha actual, racha más larga)
@@ -91,6 +91,17 @@ formulario editable en el sitio, en vez de abrir un modal o navegar
 a otra pantalla. Prioricé mantener el contexto visual — el usuario 
 ve exactamente qué fila está editando sin que aparezca nada nuevo 
 en pantalla.
+
+### Estado del botón "marcar como hecho" sincronizado con el backend
+Al cargar la página, además de pedir la lista de hábitos, se hace una 
+petición a `GET /api/habits/logs/:date` con la fecha de hoy para saber 
+qué hábitos ya están marcados. Ese resultado se convierte en un `Set` 
+de ids para comprobar el estado de cada hábito en O(1) al renderizar. 
+El botón alterna entre "Marcar como hecho" y "Desmarcar" llamando a 
+`POST /:id/log` o `DELETE /:id/logs/:date` según corresponda, y tras 
+cada cambio se vuelve a ejecutar el flujo de inicialización completo 
+para mantener el estado siempre sincronizado con la base de datos, 
+en vez de asumir el nuevo estado solo en memoria.
 
 
 ## Cómo ejecutarlo en local

@@ -2,49 +2,77 @@ const form = document.getElementById('habit-form');
 const habitList = document.getElementById('habit-list');
 
 // Function to render habits in the list
-function renderHabits(habits) {
+function renderHabits(habits, loggedIds) {
     habitList.innerHTML = ''; // Clear the list before rendering
     habits.forEach(habit => {
         const li = document.createElement('li');
         li.dataset.type = habit.type;
         li.textContent = `${habit.name} (${habit.type})`;
+
+        const isLogged = loggedIds.has(habit.id);
+
+        //buttons
         const logButton = document.createElement('button');
-        logButton.textContent = 'Hecho hoy';
+        logButton.textContent = isLogged ? 'Desmarcar' : 'Marcar como hecho';
+        if (isLogged) {
+            logButton.classList.add('logged');
+        }
+
         const editButton = document.createElement('button');
         editButton.textContent = 'Editar';
+
         const deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-btn');
         deleteButton.textContent = 'Eliminar';
 
         // Event listener for logging a habit (this is now handled in the renderHabits function)
         logButton.addEventListener('click', async () => {
             const today = new Date().toISOString().split('T')[0];   
-            const result = await logHabit(habit.id, today);
-            if (result.ok) {
-                alert(`Hábito "${habit.name}" marcado como hecho hoy.`);
+            if (isLogged) {
+                const result = await unlogHabit(habit.id, today);
+                if (result.ok) {
+                    alert(`Hábito "${habit.name}" desmarcado como hecho hoy.`);
+                    await init(); // Refresh the habits list to update the logged status
+                }
+                else {
+                    alert(`Error al desmarcar el hábito como hecho: ${result.data.error}`);
+                }
+            } else {
+                const result = await logHabit(habit.id, today);
+                if (result.ok) {
+                    alert(`Hábito "${habit.name}" marcado como hecho hoy.`);
+                    await init(); // Refresh the habits list to update the logged status
+                }
+                else {
+                    alert(`Error al marcar el hábito como hecho: ${result.data.error}`);
+                }
             }
-            else {
-                alert(`Error al marcar el hábito como hecho: ${result.data.error}`);
-            }   
         });
+
         // Event listener for editing a habit
         editButton.addEventListener('click', async () => {
             enterEditMode(li,habit);
         });
+
         // Event listener for deleting a habit
         deleteButton.addEventListener('click', async () => {
             const result = await deleteHabit(habit.id);
             if (result.ok) {
                 alert(`Hábito "${habit.name}" eliminado.`);
-                const habits = await getHabits();
-                renderHabits(habits);
+                await init(); // Refresh the habits list after deletion
             }
             else{
                 alert(`Error al eliminar el hábito: ${result.data.error}`);
             }
         });
-        li.appendChild(logButton);
-        li.appendChild(editButton);
-        li.appendChild(deleteButton);
+
+        const actions = document.createElement('div');
+        actions.className = 'habit-actions';
+        actions.appendChild(logButton);
+        actions.appendChild(editButton);
+        actions.appendChild(deleteButton);
+
+        li.appendChild(actions); // en vez de añadir los 3 botones sueltos al li
         habitList.appendChild(li);
     });
 }
@@ -52,7 +80,10 @@ function renderHabits(habits) {
 // Function to fetch and display habits on page load
 async function init() {
     const habits = await getHabits();
-    renderHabits(habits);
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    const todayLogs = await getHabitsByDate(today);
+    const loggedIds = new Set(todayLogs.map(log => log.id));
+    renderHabits(habits, loggedIds);
 }
 
 // Event listener for form submission
@@ -61,8 +92,7 @@ form.addEventListener('submit', async (event) => {
     const name = document.getElementById('habit-name').value;
     const type = document.getElementById('habit-type').value;
     createHabit(name, type).then(async() => {
-        const habits = await getHabits();
-        renderHabits(habits);
+        await init(); // Refresh the habits list after creation
         form.reset(); // Clear the form after submission
     });
 });
@@ -109,8 +139,7 @@ async function enterEditMode(li, habit) {
         
         if(result.ok){
             alert(`Hábito "${habit.name}" editado.`);
-            const habits = await getHabits();
-            renderHabits(habits);
+            await init(); // Refresh the habits list after editing
         }
         else{
             alert(`Error al editar el hábito: ${result.data.error}`);
@@ -121,8 +150,7 @@ async function enterEditMode(li, habit) {
     cancelButton.textContent = 'Cancelar';
     
     cancelButton.addEventListener('click', async () => {
-        const habits = await getHabits();
-        renderHabits(habits);
+        await init(); // Refresh the habits list to exit edit mode
     });
 
     li.appendChild(nameInput);
