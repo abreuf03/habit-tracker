@@ -1,5 +1,5 @@
-const BASE_URL = 'http://localhost:3000/api/habits';
-
+//const BASE_URL = 'http://localhost:3000/api/habits';
+const BASE_URL = '/api/habits';
 // Function to fetch and display habits
 async function getHabits() {
     const response = await fetch(`${BASE_URL}`);
