@@ -150,8 +150,6 @@ h2 {
   margin-bottom: 4px;
 }
 
-#calendar {
-}
 
 .calendar-grid {
   display: grid;
@@ -182,6 +180,7 @@ h2 {
   padding: 24px;
   margin-top: 16px;
 }
+
 
 .calendar-legend {
   display: flex;
@@ -222,6 +221,25 @@ h2 {
 
 #habit-list button.logged:hover {
   opacity: 0.85;
+}
+
+.stats-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-top: 16px;
+}
+
+.stats-link {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.stats-link:hover {
+  text-decoration: underline;
 }
 
 /* --- Responsive --- */

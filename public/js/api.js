@@ -73,3 +73,9 @@ async function unlogHabit(habitId, date) {
     const data = await response.json();
     return {ok: response.ok, data}; // Return both the status and the data
 }
+
+// Function to get stats
+async function getStats(){
+    const response = await fetch(`${BASE_URL}/stats`);
+    return await response.json();
+}

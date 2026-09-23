@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const { calculateStreaks } = require('./utils');
 
 // GET -> list all habits
 
@@ -123,6 +124,44 @@ router.delete('/:id', (req, res) => {
         return res.status(404).json({ error: 'Habit not found' });
     }
     res.status(200).json({ message: 'Habit and its logs deleted successfully' });
+});
+
+
+// stats
+
+router.get('/stats', (req, res) =>{
+    const habits = db.prepare(`
+        SELECT * FROM habits
+    `).all();
+    
+    const habitStreaks = habits.map(habit => {
+        const logDates = db.prepare(`
+            SELECT date FROM habit_logs
+            WHERE habit_id = ?
+            ORDER BY date
+        `).all(habit.id); 
+
+        const logDatesString = logDates.map(row => row.date);
+        
+        const streaks = calculateStreaks(logDatesString); // devuelve { current, longest }
+
+        return {
+            id: habit.id,
+            name: habit.name,
+            current: streaks.current,
+            longest: streaks.longest
+        };
+    });
+    
+    const globalLogDates = db.prepare(`
+            SELECT DISTINCT date FROM habit_logs
+            ORDER BY date
+    `).all(); 
+    
+    const globalLogDatesString = globalLogDates.map(row => row.date);
+    const globalStreak = calculateStreaks(globalLogDatesString);
+
+    res.json({ habitStreaks, globalStreak });
 });
 
 module.exports = router;

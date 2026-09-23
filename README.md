@@ -56,16 +56,23 @@ segunda iteración.
 - [x] Calendario visual tipo "contribution graph" (combina todos los hábitos, 
   más oscuro = más hábitos completados ese día)
 - [x] Editar/eliminar hábitos
+- [x] Estadísticas (racha actual, racha más larga)
 
 ### En progreso
 - [ ] Mejorar el diseño visual del frontend (por ahora es funcional pero básico)
   - [x] Estética de botones
   - [x] Calendario
   - [ ] Distribución del espacio
+  - [ ] Estadísticas
 
 ### Por hacer
-- [ ] Estadísticas (racha actual, racha más larga)
 - [ ] Modo oscuro
+- [ ] Deployment
+- [ ] Testing
+- [ ] Reorganizar lista de hábitos
+  - [ ] Por orden alfabético
+  - [ ] Por categoría
+  - [ ] Por fecha de creación
 
 
 ## Decisiones técnicas destacadas
@@ -102,6 +109,15 @@ El botón alterna entre "Marcar como hecho" y "Desmarcar" llamando a
 cada cambio se vuelve a ejecutar el flujo de inicialización completo 
 para mantener el estado siempre sincronizado con la base de datos, 
 en vez de asumir el nuevo estado solo en memoria.
+
+### Cálculo de rachas
+Las rachas se calculan en el backend con una función auxiliar (`calculateStreaks`) 
+que recibe un array de fechas y determina la racha más larga histórica y la 
+racha actual (solo cuenta si el último día registrado es hoy o ayer; si no, 
+la racha actual es 0 aunque haya habido una racha larga en el pasado). 
+La misma función se reutiliza tanto para la racha de un hábito individual 
+como para la racha global (días con al menos un hábito completado), 
+pasándole distintos conjuntos de fechas.
 
 
 ## Cómo ejecutarlo en local
