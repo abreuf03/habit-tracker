@@ -10,23 +10,34 @@ function daysAgo(n) {
     return d.toISOString().split('T')[0];
 }
 
+// Igual que daysAgo, pero devuelve fecha Y hora completas,
+// para usarla como date_created (evita que varios hábitos
+// insertados en el mismo segundo queden "empatados")
+function daysAgoDateTime(n) {
+    const d = new Date();
+    d.setDate(d.getDate() - n);
+    return d.toISOString();
+}
+
 const habitsData = [
-    { name: 'Beber 2L de agua', type: 'salud' },
-    { name: 'Hacer ejercicio', type: 'salud' },
-    { name: 'Dormir 8 horas', type: 'salud' },
-    { name: 'Leer 20 páginas', type: 'estudio' },
-    { name: 'Practicar inglés', type: 'estudio' },
-    { name: 'Llamar a un familiar', type: 'social' },
-    { name: 'Quedar con amigos', type: 'social' },
-    { name: 'Meditar 10 minutos', type: 'ocio' },
-    { name: 'Dibujar', type: 'ocio' },
-    { name: 'Escuchar un podcast', type: 'ocio' },
+    { name: 'Beber 2L de agua', type: 'salud', createdDaysAgo: 28 },
+    { name: 'Leer 20 páginas', type: 'estudio', createdDaysAgo: 26 },
+    { name: 'Llamar a un familiar', type: 'social', createdDaysAgo: 23 },
+    { name: 'Meditar 10 minutos', type: 'ocio', createdDaysAgo: 20 },
+    { name: 'Hacer ejercicio', type: 'salud', createdDaysAgo: 17 },
+    { name: 'Quedar con amigos', type: 'social', createdDaysAgo: 14 },
+    { name: 'Practicar inglés', type: 'estudio', createdDaysAgo: 11 },
+    { name: 'Dibujar', type: 'ocio', createdDaysAgo: 8 },
+    { name: 'Dormir 8 horas', type: 'salud', createdDaysAgo: 4 },
+    { name: 'Escuchar un podcast', type: 'ocio', createdDaysAgo: 1 },
 ];
 
-const insertHabit = db.prepare('INSERT INTO habits (name, type) VALUES (?, ?)');
+// Ahora insertamos también date_created explícitamente,
+// en vez de dejar que la columna use su DEFAULT
+const insertHabit = db.prepare('INSERT INTO habits (name, type, date_created) VALUES (?, ?, ?)');
 const ids = {};
 habitsData.forEach(h => {
-    const result = insertHabit.run(h.name, h.type);
+    const result = insertHabit.run(h.name, h.type, daysAgoDateTime(h.createdDaysAgo));
     ids[h.name] = result.lastInsertRowid;
 });
 
@@ -52,6 +63,5 @@ insertLog.run(ids['Llamar a un familiar'], daysAgo(0));
 
 // Sin actividad reciente
 [7, 8].forEach(n => insertLog.run(ids['Dibujar'], daysAgo(n)));
-
 
 console.log('Base de datos de producción (seed.db) poblada con datos de ejemplo ✅');

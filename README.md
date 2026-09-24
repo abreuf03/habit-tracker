@@ -72,21 +72,19 @@ al no haber sistema de autenticación (ver "Ideas para una v2").
 - [x] Editar/eliminar hábitos
 - [x] Estadísticas (racha actual, racha más larga)
 - [x] Deployment (Render, capa gratuita)
+- [x] Reordenar la lista de hábitos (alfabético, categoría, fecha de 
+  creación ascendente/descendente)
 
 ### En progreso
 - [ ] Mejorar el diseño visual del frontend (por ahora es funcional pero básico)
   - [x] Estética de botones
   - [x] Calendario
   - [ ] Distribución del espacio
-  - [ ] Estadísticas
+  - [x] Estadísticas
 
 ### Por hacer
 - [ ] Modo oscuro
 - [ ] Testing
-- [ ] Reorganizar lista de hábitos
-  - [ ] Por orden alfabético
-  - [ ] Por categoría
-  - [ ] Por fecha de creación
 
 
 ## Decisiones técnicas destacadas
@@ -145,6 +143,17 @@ local (`habit-tracker.db`), seleccionado mediante la variable de entorno
 así que el propio script de seed se reejecuta en cada build, lo que 
 "resetea" la demo automáticamente cada vez que el servicio se reinicia 
 tras estar inactivo.
+
+### Ordenamiento de hábitos en el cliente
+La lista se reordena por completo en el frontend con `.sort()` sobre 
+el array ya cargado, en vez de pedir datos nuevos al backend por cada 
+criterio — no hay razón para ir al servidor cuando ya se tienen todos 
+los hábitos en memoria. Cada criterio usa una función de comparación 
+distinta: `localeCompare()` para nombre y categoría (maneja bien 
+tildes y mayúsculas), y resta de objetos `Date` para ordenar por 
+fecha de creación. `sortHabits()` trabaja sobre una copia del array 
+(`[...habits]`) en vez de mutar el original con `.sort()` directamente, 
+para no perder el orden "natural" de los datos según llegan de la API.
 
 ## Ideas para una v2
 

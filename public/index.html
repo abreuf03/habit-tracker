@@ -22,9 +22,23 @@
                 <option value="ocio">Ocio</option>
             </select>
             <button type="submit">Crear hábito</button>
+
         </form>
 
-        <ul id="habit-list"></ul>
+        <div class='calendar-card'>
+            <div class="select-card">
+                <label for="sort-select">Ordenar por:</label>
+                <select id="sort-select">
+                    <option value="date-asc">Más antiguo primero</option>
+                    <option value="date-desc">Más reciente primero</option>
+                    <option value="alphabetical">Nombre (A-Z)</option>
+                    <option value="category">Categoría</option>
+                </select>
+            </div>
+
+            <ul id="habit-list"></ul>
+        </div>
+
         <div class="stats-card">
             <a href="stats.html" class="stats-link">Ver estadísticas →</a>
         </div>

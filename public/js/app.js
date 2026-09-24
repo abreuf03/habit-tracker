@@ -1,5 +1,6 @@
 const form = document.getElementById('habit-form');
 const habitList = document.getElementById('habit-list');
+let currentSort = 'date-asc';
 
 // Function to render habits in the list
 function renderHabits(habits, loggedIds) {
@@ -83,8 +84,16 @@ async function init() {
     const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
     const todayLogs = await getHabitsByDate(today);
     const loggedIds = new Set(todayLogs.map(log => log.id));
-    renderHabits(habits, loggedIds);
+    const sorted = sortHabits(habits, currentSort);
+    renderHabits(sorted, loggedIds);
 }
+
+// Event listener to sort habits
+const select = document.getElementById('sort-select');
+select.addEventListener('change', async(event)=> {
+    currentSort = event.target.value;
+    await init();
+});
 
 // Event listener for form submission
 form.addEventListener('submit', async (event) => {
@@ -161,6 +170,31 @@ async function enterEditMode(li, habit) {
     typeInput.appendChild(optionStudy);
     typeInput.appendChild(optionSocial);
     typeInput.appendChild(optionFun);
+}
+
+// Function to sort habits by different rules
+function sortHabits(habits, criterio) {
+    const sorted = [...habits]; // copia el array, para no mutar el original directamente
+    
+    switch(criterio){
+        case 'alphabetical':
+            sorted.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        case 'category':
+            sorted.sort((a, b) => a.type.localeCompare(b.type));
+            break;
+        case 'date-desc':
+            sorted.sort((a, b) => new Date(b.date_created) - new Date(a.date_created));
+            break;
+        case 'date-asc':
+        sorted.sort((a, b) => new Date(a.date_created) - new Date(b.date_created));
+        break;           
+        default:
+            break;
+
+    }
+    
+    return sorted;
 }
 
 // Initialize the app
