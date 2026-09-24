@@ -57,6 +57,20 @@ regenera en cada despliegue mediante un script de seed, ya que
 cualquier visitante puede crear, editar o borrar hábitos libremente 
 al no haber sistema de autenticación (ver "Ideas para una v2").
 
+## Capturas
+
+**Lista de hábitos**
+![Lista de hábitos](docs/listahabitos.png)
+
+**Calendario de hábitos**
+![Calendario tipo contribution graph](docs/calendario.png)
+
+**Estadísticas y rachas**
+![Estadísticas por categoría](docs/estadisticas.png)
+
+**Modo oscuro**
+![Modo oscuro](docs/modooscuro.png)
+
 ## Funcionalidades
 
 ### Hechas
@@ -77,6 +91,7 @@ al no haber sistema de autenticación (ver "Ideas para una v2").
 - [x] Estado de carga
 - [x] Confirmación antes de borrar
 - [x] Validación antes de enviar el form
+- [x] Modo oscuro
 
 ### En progreso
 - [ ] Mejorar el diseño visual del frontend (por ahora es funcional pero básico)
@@ -86,7 +101,6 @@ al no haber sistema de autenticación (ver "Ideas para una v2").
   - [x] Estadísticas
 
 ### Por hacer
-- [ ] Modo oscuro
 - [ ] Testing
 - [ ] Añadir multimedia en archivo README
 
