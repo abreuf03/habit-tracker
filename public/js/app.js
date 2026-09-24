@@ -57,6 +57,10 @@ function renderHabits(habits, loggedIds) {
 
         // Event listener for deleting a habit
         deleteButton.addEventListener('click', async () => {
+            const confirmacion = confirm('¿Está segur@ de que quiere eliminar el hábito?');
+            if(!confirmacion){
+                return;
+            }
             const result = await deleteHabit(habit.id);
             if (result.ok) {
                 alert(`Hábito "${habit.name}" eliminado.`);
@@ -80,6 +84,7 @@ function renderHabits(habits, loggedIds) {
 
 // Function to fetch and display habits on page load
 async function init() {
+    habitList.innerHTML = '<li class="loading">Cargando hábitos...</li>';
     const habits = await getHabits();
     const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
     const todayLogs = await getHabitsByDate(today);
@@ -100,6 +105,10 @@ form.addEventListener('submit', async (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
     const name = document.getElementById('habit-name').value;
     const type = document.getElementById('habit-type').value;
+    if(name.trim()==''){
+        alert('Introduzca el nombre del hábito');
+        return;
+    }
     createHabit(name, type).then(async() => {
         await init(); // Refresh the habits list after creation
         form.reset(); // Clear the form after submission
