@@ -85,6 +85,10 @@ al no haber sistema de autenticación (ver "Ideas para una v2").
 ### Por hacer
 - [ ] Modo oscuro
 - [ ] Testing
+- [ ] Validación antes de enviar el form
+- [ ] Añadir multimedia en archivo README
+- [ ] Estado de carga
+- [ ] Confirmación antes de borrar
 
 
 ## Decisiones técnicas destacadas
