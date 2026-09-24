@@ -86,6 +86,10 @@ function renderHabits(habits, loggedIds) {
 async function init() {
     habitList.innerHTML = '<li class="loading">Cargando hábitos...</li>';
     const habits = await getHabits();
+    if (habits === null) {
+        habitList.innerHTML = '<li class="error">No se pudo conectar con el servidor. Comprueba tu conexión.</li>';
+        return; 
+    }
     const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
     const todayLogs = await getHabitsByDate(today);
     const loggedIds = new Set(todayLogs.map(log => log.id));
@@ -119,6 +123,10 @@ form.addEventListener('submit', async (event) => {
 async function initCalendar() {
     const lastNDays = getLastNDays(30); // Get the last 30 days
     const logsSummary = await getLogsSummary(); // Fetch the logs summary from the server
+    if (logsSummary === null) {
+        document.getElementById('calendar').innerHTML = '<p class="error">No se pudo cargar el calendario.</p>';
+        return; 
+    }
     const countMap = buildCountMap(logsSummary); // Build a count map from the logs summary
     const calendarData = buildCalendarData(lastNDays, countMap); // Combine the last N days with the count map
     renderCalendar(calendarData); // Render the calendar with the combined data

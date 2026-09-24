@@ -1,5 +1,9 @@
 async function initStats() {
     const stats = await getStats();
+    if (stats === null) {
+        document.getElementById('global-streak').innerHTML = '<li class="error">No se pudo conectar con el servidor. Comprueba tu conexión.</li>';
+        return; 
+    }
 
     const globalContainer = document.getElementById('global-streak');
     globalContainer.innerHTML = `

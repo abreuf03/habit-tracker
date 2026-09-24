@@ -74,6 +74,9 @@ al no haber sistema de autenticación (ver "Ideas para una v2").
 - [x] Deployment (Render, capa gratuita)
 - [x] Reordenar la lista de hábitos (alfabético, categoría, fecha de 
   creación ascendente/descendente)
+- [x] Estado de carga
+- [x] Confirmación antes de borrar
+- [x] Validación antes de enviar el form
 
 ### En progreso
 - [ ] Mejorar el diseño visual del frontend (por ahora es funcional pero básico)
@@ -85,10 +88,8 @@ al no haber sistema de autenticación (ver "Ideas para una v2").
 ### Por hacer
 - [ ] Modo oscuro
 - [ ] Testing
-- [ ] Validación antes de enviar el form
 - [ ] Añadir multimedia en archivo README
-- [ ] Estado de carga
-- [ ] Confirmación antes de borrar
+
 
 
 ## Decisiones técnicas destacadas
