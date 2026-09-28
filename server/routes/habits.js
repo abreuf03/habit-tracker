@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const { calculateStreaks } = require('./utils');
+const { calculateStreaks } = require('../utils');
 
 // GET -> list all habits
 
