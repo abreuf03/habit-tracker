@@ -92,6 +92,8 @@ al no haber sistema de autenticación (ver "Ideas para una v2").
 - [x] Confirmación antes de borrar
 - [x] Validación antes de enviar el form
 - [x] Modo oscuro
+- [x] Testing
+- [x] Añadir multimedia en archivo README
 
 ### En progreso
 - [ ] Mejorar el diseño visual del frontend (por ahora es funcional pero básico)
@@ -101,8 +103,7 @@ al no haber sistema de autenticación (ver "Ideas para una v2").
   - [x] Estadísticas
 
 ### Por hacer
-- [ ] Testing
-- [ ] Añadir multimedia en archivo README
+
 
 
 
@@ -173,6 +174,13 @@ tildes y mayúsculas), y resta de objetos `Date` para ordenar por
 fecha de creación. `sortHabits()` trabaja sobre una copia del array 
 (`[...habits]`) en vez de mutar el original con `.sort()` directamente, 
 para no perder el orden "natural" de los datos según llegan de la API.
+
+## Tests
+
+Se ejecutan con `npm test`, usando el ejecutor integrado de Node (`node:test`), sin dependencias adicionales.
+
+- **Lógica pura (`calculateStreaks`):** racha viva, racha rota, huecos entre días, fechas desordenadas y que la función no modifica el array que recibe.
+- **API (tests de integración):** crear, listar, editar y borrar hábitos, marcar y desmarcar días, y los códigos 201, 400, 404 y 409. Usan una base de datos aparte (`test.db`) que se vacía antes de cada test.
 
 ## Ideas para una v2
 
