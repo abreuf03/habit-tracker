@@ -15,7 +15,10 @@ app.get('/api/test', (req, res) => {
     res.json({ message: 'API is working!' });
 });
 
-//port listener
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT} qué fiera!!`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
