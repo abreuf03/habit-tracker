@@ -48,6 +48,7 @@ function renderHabits(habits, loggedIds) {
                     alert(`Error al marcar el hábito como hecho: ${result.data.error}`);
                 }
             }
+            initCalendar();
         });
 
         // Event listener for editing a habit
